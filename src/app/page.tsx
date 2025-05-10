@@ -1,3 +1,9 @@
+import Movies from "@/components/Movies";
+
 export default async function Home() {
-  return <h1>HELLO!</h1>;
+  return (
+    <>
+      <Movies />
+    </>
+  );
 }
