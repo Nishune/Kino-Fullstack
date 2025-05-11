@@ -7,6 +7,8 @@ import {
   TakenSeatIcon,
 } from "./SeatingIcons";
 import { Seat, SeatsByRow, CinemaSeatingProps } from "./types/Seatings.types";
+import DisableModal from "./DisableModal";
+import HandicapSeatHandler from "./HandicapSeatHandler";
 
 const CinemaSeating: React.FC<CinemaSeatingProps> = ({ totalTickets }) => {
   const [seats, setSeats] = useState<Seat[]>([]);
@@ -93,47 +95,35 @@ const CinemaSeating: React.FC<CinemaSeatingProps> = ({ totalTickets }) => {
                 const isDisabled =
                   seat.disabled || isDisabledSeat(seat.row, seat.seatNumber);
 
+                if (isDisabled) {
+                  return (
+                    <HandicapSeatHandler key={seat._id}>
+                      <button
+                        className="w-7 h- flex items-center justify-center rounded cursor-pointer bg-[#5A5A5A]"
+                        aria-label="Handikappad plats"
+                      >
+                        <DisabledSeatIcon />
+                      </button>
+                    </HandicapSeatHandler>
+                  );
+                }
+
+                const isSelected = selectedSeats.includes(seat._id);
+                const isSelectable =
+                  selectedSeats.length < totalTickets || isSelected;
+
                 return (
                   <button
                     key={seat._id}
-                    onClick={() => toggleSeat(seat._id, isDisabled)}
-                    className={`
-                      w-7 h- flex items-center justify-center 
-                       rounded 
-                      ${
-                        isDisabled
-                          ? "cursor-pointer bg-[#5A5A5A]"
-                          : selectedSeats.length >= totalTickets &&
-                            !selectedSeats.includes(seat._id)
-                          ? "cursor-not-allowed opacity-50"
-                          : "cursor-pointer"
-                      }
-                      ${
-                        selectedSeats.includes(seat._id)
-                          ? ""
-                          : isDisabled
-                          ? "bg-black-700 text-white"
-                          : "bg-kino-darkgrey text-white hover:bg-[#1a1a1a]"
-                      }
-                    `}
-                    aria-label={
-                      isDisabled
-                        ? "Handikappad plats"
-                        : `Säte ${seat.seatNumber}`
-                    }
-                    disabled={
-                      isDisabled ||
-                      (selectedSeats.length >= totalTickets &&
-                        !selectedSeats.includes(seat._id))
-                    }
+                    onClick={() => toggleSeat(seat._id, false)}
+                    className={`w-7 h- flex items-center justify-center rounded ${
+                      !isSelectable
+                        ? "cursor-not-allowed opacity-50"
+                        : "cursor-pointer"
+                    } bg-kino-darkgrey text-white hover:bg-[#1a1a1a]`}
+                    aria-label={`Säte ${seat.seatNumber}`}
                   >
-                    {isDisabled ? (
-                      <DisabledSeatIcon />
-                    ) : selectedSeats.includes(seat._id) ? (
-                      <SelectedSeatIcon />
-                    ) : (
-                      <AvailableSeatIcon />
-                    )}
+                    {isSelected ? <SelectedSeatIcon /> : <AvailableSeatIcon />}
                   </button>
                 );
               })}
