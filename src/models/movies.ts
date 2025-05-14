@@ -14,7 +14,6 @@ const movieSchema = new mongoose.Schema({
   slug: String,
 });
 
-const movie =
-  mongoose.models.movieResult || mongoose.model("movie", movieSchema);
+const movie = mongoose.models?.movie || mongoose.model("movie", movieSchema);
 
 export { movie };

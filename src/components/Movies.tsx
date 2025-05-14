@@ -9,7 +9,7 @@ const Movies = () => {
   useEffect(() => {
     async function loadMovies() {
       try {
-        const response = await fetch("/api/movies");
+        const response = await fetch("/api/movies?tags=nowShowing");
         const dataMovies: movieType[] = await response.json();
         setMovies(dataMovies);
       } catch (err) {
@@ -20,11 +20,7 @@ const Movies = () => {
     loadMovies();
   }, []);
 
-  const nowShowing = movies.filter((movie) =>
-    movie.tags.includes("nowShowing")
-  );
-
-  shufffle(nowShowing);
+  shufffle(movies);
 
   //Fisher-Yates algoritm
   function shufffle(shuff: movieType[]) {
@@ -35,12 +31,12 @@ const Movies = () => {
     }
   }
 
-  const display = nowShowing.slice(0, 5);
+  const display = movies.slice(0, 5);
 
   return (
     <>
       <div>
-        <Display display={display}> Know showing on Cinema</Display>
+        <Display display={display}> Now showing on Kino cinema</Display>
       </div>
     </>
   );

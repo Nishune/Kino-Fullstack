@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import InfoButton from "./InfoButton";
+import { displayOpen } from "@/types/Opentype";
 
-const InfoModal = () => {
+const InfoModal = ({ display }: { display: displayOpen[] }) => {
   const update = [
     { id: 1, display: false },
     { id: 2, display: false },
@@ -25,7 +26,7 @@ const InfoModal = () => {
 
   return (
     <div className="bg-kino-darkgrey max-w-[700px] rounded-2xl p-4">
-      <h3 className="text-2xl mb-2">Vanliga frågor</h3>
+      <h3 className="text-2xl mb-2">Frequently asked questions</h3>
       <ul>
         <li>
           <InfoButton
@@ -39,14 +40,14 @@ const InfoModal = () => {
 
           {open[0].display && (
             <p className="p-2">
-              Kino Sandviken är en charmig och modern biograf som ligger i
-              hjärtat av den fantastiska staden Sandviken. Biografen erbjuder en
-              unik filmupplevelse med sina tre toppmoderna salonger, varav en är
-              utrustad med en exklusiv IMAX-duk för enastående bild- och
-              ljudkvalitet. Med ett brett urval av filmer - från stora
-              blockbusters till indiefilmer och klassiker - har Kino Sandviken
-              något för alla smaker. Det är en självklar mötesplats för
-              filmälskare i alla åldrar!
+              Kino Sandviken is a charming and modern cinema located in the
+              heart of the fantastic city of Sandviken. The cinema offers a
+              unique movie experience with two state-of-the-art auditoriums, one
+              of which is equipped with an exclusive IMAX screen for outstanding
+              picture and sound quality. With a wide selection of films – from
+              major blockbusters to indie films and classics – Kino Sandviken
+              has something for every taste. It is a natural meeting place for
+              movie lovers of all ages!
             </p>
           )}
         </li>
@@ -61,12 +62,13 @@ const InfoModal = () => {
           </InfoButton>
           {open[1].display && (
             <p className="p-2">
-              Kino Sandviken är tillgänglig för alla! Våra lokaler har
-              rullstolsanpassade ingångar, ramper och sittplatser i varje
-              salong. För gäster med nedsatt hörsel erbjuder vi hörslingor och
-              textade visningar, och för de med nedsatt syn finns syntolkning
-              tillgänglig vid utvalda filmer. Vår personal finns alltid på plats
-              för att hjälpa till och göra besöket så smidigt som möjligt.
+              Kino Sandviken is accessible to everyone! Our facilities feature
+              wheelchair-accessible entrances, ramps, and seating in every
+              auditorium. For guests with hearing impairments, we offer hearing
+              loops and subtitled screenings, and for those with visual
+              impairments, audio description is available for selected films.
+              Our staff is always on hand to assist and make your visit as
+              smooth as possible.
             </p>
           )}
         </li>
@@ -80,9 +82,23 @@ const InfoModal = () => {
             {"Öppettider"}
           </InfoButton>
           {open[2].display && (
-            <p className="p-2">
-              Biografen stränger 15 minuter efter föreställningen
-            </p>
+            <div>
+              <p className="p-2">
+                The cinema closes 15 minutes after the screening.
+              </p>
+
+              <ul className="">
+                {display.map((show, index) => {
+                  return (
+                    <li key={index} className="p-2  grid grid-cols-3">
+                      <span className="col-start-1">{show.day} </span>{" "}
+                      <span className="col-start-2">{show.date}</span>
+                      <span className="col-start-3">{show.hours}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
           )}
         </li>
       </ul>

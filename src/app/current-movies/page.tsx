@@ -1,3 +1,9 @@
-export default function About() {
-  return <h1>current movieSs</h1>;
+import CurrentMoviesList from "@/components/current-movies/CurrentMoviesList"
+
+export default function CurrentMoviesPage() {
+  return (
+    <main>
+      <CurrentMoviesList />
+    </main>
+  )
 }

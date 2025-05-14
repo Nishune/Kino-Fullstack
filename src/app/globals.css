@@ -1,8 +1,14 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @font-face {
-  font-family: "Poppins";
-  src: url("https://fonts.googleapis.com/css?family=Poppins");
+  font-family: 'Poppins';
+  src: url('https://fonts.googleapis.com/css?family=Poppins');
+}
+
+@layer utilities {
+  .bg-gradient-60 {
+    background-image: linear-gradient(60deg, rgb(220, 0, 0), rgb(0, 0, 190), rgb(255, 0, 0));
+  }
 }
 
 @theme {
@@ -15,7 +21,7 @@
   --color-kino-green: #64dd17;
   --color-kino-darkgreen: #154e10;
   --color-kino-yellow: #ffca28;
-  --font-poppins: "Poppins";
+  --font-poppins: 'Poppins';
 }
 html {
   background-color: var(--color-kino-black);

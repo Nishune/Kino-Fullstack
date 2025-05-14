@@ -1,10 +1,10 @@
-import InfoModal from "@/components/InfoModal";
+import InfoKino from "@/components/InfoKino";
 import Movies from "@/components/Movies";
 
 export default async function Home() {
   return (
     <>
-      <InfoModal />
+      <InfoKino />
       <Movies />
     </>
   );
