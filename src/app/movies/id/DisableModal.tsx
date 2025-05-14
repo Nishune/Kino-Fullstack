@@ -14,16 +14,16 @@ const DisableModal = ({ isOpen, onClose }: Props) => {
       role="dialog"
     >
       <div className="rounded-lg bg-kino-darkgrey shadow-xl p-6 max-w-md w-full mx-4">
-        <h2 className="text-xl font-semibold mb-2 text-center">Handikapplats</h2>
+        <h2 className="text-xl font-semibold mb-2 text-center">Disabled Seat</h2>
         <p className="text-center">
-          För att boka denna plats, vänligen <strong>ring 026-29 00 66</strong>.
+          If you want to book this seat, please <strong>call 026-29 00 66</strong>.
         </p>
         <div className="mt-6 flex justify-center">
           <button
             onClick={onClose}
             className="px-4 py-2 bg-kino-darkred cursor-pointer text-white rounded hover:bg-kino-darkred"
           >
-            Stäng
+            Close
           </button>
         </div>
       </div>
