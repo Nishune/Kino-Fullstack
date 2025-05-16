@@ -5,12 +5,12 @@ import { FC } from 'react';
 import Button from './Button';
 
 type Props = {
-  showModal: string;
-  onToggleModal: () => void;
+  showRegisterModal: string;
+  onToggleModal: (modal: string) => void;
   onResetForm: (event: FormEvent<HTMLFormElement>) => void;
 };
 
-const Register: FC<Props> = ({ showModal, onToggleModal, onResetForm }) => {
+const Register: FC<Props> = ({ showRegisterModal, onToggleModal, onResetForm }) => {
   const [error, setError] = useState<string>('');
   const resetError = () => {
     if (error !== '') {
@@ -21,13 +21,24 @@ const Register: FC<Props> = ({ showModal, onToggleModal, onResetForm }) => {
   return (
     <div>
       <div
-        className={`fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-51 ${showModal}`}
+        className={`fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-51 ${showRegisterModal}`}
         onClick={() => {
-          onToggleModal();
+          onToggleModal('signin');
         }}></div>
       <div
-        className={`w-full max-w-100 flex items-center z-999 bg-neutral-800 top-1/4 bottom-1/4 text-white p-8 rounded-xl shadow-lg fixed flex-col right-2 left-2 ml-auto mr-auto overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 ${showModal}`}>
+        className={`w-full max-w-100 flex items-center z-999 bg-neutral-800 top-1/5 bottom-1/4.5 text-white p-8 rounded-xl shadow-lg fixed flex-col right-2 left-2 ml-auto mr-auto overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:rounded-full [&::-webkit-scrollbar-track]:bg-gray-100 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-gray-300 dark:[&::-webkit-scrollbar-track]:bg-neutral-700 dark:[&::-webkit-scrollbar-thumb]:bg-neutral-500 ${showRegisterModal}`}>
         <h2 className='text-2xl font-bold mt-4 mb-6'>Register</h2>
+        <p>
+          Already a member?{' '}
+          <span
+            className='underline cursor-pointer'
+            onClick={() => {
+              onToggleModal('login');
+              onToggleModal('signin');
+            }}>
+            Login
+          </span>
+        </p>
         <form
           className=''
           onSubmit={async (event: FormEvent<HTMLFormElement>) => {
@@ -52,7 +63,7 @@ const Register: FC<Props> = ({ showModal, onToggleModal, onResetForm }) => {
                 return;
               } else {
                 setError('');
-                onToggleModal();
+                onToggleModal('signin');
                 onResetForm(event);
               }
             } catch (error) {
@@ -90,7 +101,7 @@ const Register: FC<Props> = ({ showModal, onToggleModal, onResetForm }) => {
           <p
             className='hover:text-gray-300 text-center mt-4 cursor-pointer'
             onClick={() => {
-              onToggleModal();
+              onToggleModal('signin');
             }}>
             Close
           </p>

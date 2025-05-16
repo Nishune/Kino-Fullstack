@@ -4,7 +4,7 @@ import { signOut } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 import { FC } from 'react';
 
-type Props = { onToggleModal: () => void };
+type Props = { onToggleModal: (modal: string) => void };
 
 const SISO_Desktop: FC<Props> = ({ onToggleModal }) => {
   const session = useSession();
@@ -24,7 +24,9 @@ const SISO_Desktop: FC<Props> = ({ onToggleModal }) => {
     return (
       <Button
         type='button'
-        onClick={onToggleModal}
+        onClick={() => {
+          onToggleModal('login');
+        }}
         className='hidden text-sm leading-none sm:hidden md:hidden lg:inline-block ml-auto border border-kino-white hover:kino-red'>
         Sign In
       </Button>
@@ -48,7 +50,12 @@ const SISO_Mobile: FC<Props> = ({ onToggleModal }) => {
     );
   } else if (status === 'unauthenticated') {
     return (
-      <Button type='button' onClick={onToggleModal} className='className="w-fit text-sm px-4 py-1 border border-kino-white hover:bg-kino-red transition rounded-full'>
+      <Button
+        type='button'
+        onClick={() => {
+          onToggleModal('login');
+        }}
+        className='className="w-fit text-sm px-4 py-1 border border-kino-white hover:bg-kino-red transition rounded-full'>
         Sign In
       </Button>
     );
