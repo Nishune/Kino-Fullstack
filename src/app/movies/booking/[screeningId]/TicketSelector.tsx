@@ -2,12 +2,15 @@
 import { useState, useEffect, useMemo } from "react";
 import TicketButton from "./TicketButton";
 import { Tickets, TicketSelectorProps } from "./types/TicketSelector.types";
+import { useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 export default function TicketSelector({
   onTotalTicketsChange,
   onFinalPriceChange,
 }: TicketSelectorProps) {
-  const isLoggedIn = false; //TEMPORARY SET TO FALSE UNTIL WE IMPLEMENTED LOGIN.
+  const { status } = useSession();
+  const isLoggedIn = status === "authenticated";
   const [ticketCounts, setTicketCounts] = useState<Tickets>({
     regular: 0,
     kids: 0,
@@ -26,6 +29,10 @@ export default function TicketSelector({
     }),
     []
   );
+
+  const handleLoginClick = () => {
+    signIn(undefined, { callbackUrl: window.location.href });
+  };
 
   const handleTicketCountChange = (ticketType: string, count: number): void => {
     setTicketCounts((prev) => ({
@@ -101,16 +108,17 @@ export default function TicketSelector({
             <span className="font-medium">{totalPrice} kr</span>
           </div>
 
-          {isLoggedIn && (
+          {isLoggedIn ? (
             <div className="flex justify-between">
               <span className="font-medium">Discount (10%)</span>
               <span className="font-medium">{totalPrice - finalPrice} kr</span>
             </div>
-          )}
+          ):(
           <div className="flex justify-between">
             <span className="font-medium">Discount (10%)</span>
             <span className="font-medium">Not a member</span>
           </div>
+          )}
 
           <hr className="my-2 border-t-[0.5px]" />
           <div className="flex justify-between">
@@ -118,8 +126,13 @@ export default function TicketSelector({
             <span className="font-bold text-lg">{finalPrice} kr</span>
           </div>
           <div className="mt-2 text-sm text-kino-grey">
-            <span className="text-kino-darkred">Login </span>
-            <span>to recieve discount</span>
+            <button 
+                onClick={handleLoginClick}
+                className="text-kino-darkred hover:underline cursor-pointer mr-2"
+              >
+                Login
+              </button>
+            <span>to receive discount</span>
           </div>
         </div>
       </div>
