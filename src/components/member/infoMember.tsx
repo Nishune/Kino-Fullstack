@@ -23,9 +23,7 @@ const InfoMeber = () => {
   useEffect(() => {
     async function loadMovies() {
       try {
-        const response = await fetch(
-          `/api/bookings/${session?.user.id}/profile`
-        );
+        const response = await fetch(`/api/bookings/${session?.user.id}/profile`);
         if (!response.ok) {
           throw new Error('Failed to fetch booked movies');
         }
@@ -37,7 +35,7 @@ const InfoMeber = () => {
     }
 
     loadMovies();
-  }, []);
+  }, [session?.user.id]);
 
   async function updateUser(userInfo: user) {
     try {
@@ -98,95 +96,91 @@ const InfoMeber = () => {
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center p-4">
-        <h1 className="text-4xl text-center">Member page</h1>
+      <div className='flex flex-col justify-center items-center p-4'>
+        <h1 className='text-4xl text-center'>Member page</h1>
 
-        <div className="mt-4 mb-4">
-          <div className="h-[300px] w-[300px] relative">
+        <div className='mt-4 mb-4'>
+          <div className='h-[300px] w-[300px] relative'>
             <Image
-              src="/inloggad-member.png"
-              alt="icon for logged in member"
+              src='/inloggad-member.png'
+              alt='icon for logged in member'
               width={350}
               height={350}
-              className=" rounded-4xl "
+              className=' rounded-4xl '
             />
-            <p className="absolute bottom-20 right-[50%] translate-[50%] max-w-[100px] text-center">
+            <p className='absolute bottom-20 right-[50%] translate-[50%] max-w-[100px] text-center'>
               {session?.user?.name}
             </p>
           </div>
 
-          <div className="pt-4">
-            <h2 className="text-2xl font-bold pb-2">Userinfo</h2>
+          <div className='pt-4'>
+            <h2 className='text-2xl font-bold pb-2'>Userinfo</h2>
             <p>Name: {session?.user?.name} </p>
             <p>Email: {session?.user.email}</p>
             <p>Mobile: {session?.user.number}</p>
           </div>
         </div>
 
-        <div className="min-w-[300px]">
-          <h2 className="text-2xl font-bold pb-2">Update userinfo</h2>
+        <div className='min-w-[300px]'>
+          <h2 className='text-2xl font-bold pb-2'>Update userinfo</h2>
           {error && (
-            <div className={'mb-2 text-xl text-kino-red'} role="alert">
+            <div className={'mb-2 text-xl text-kino-red'} role='alert'>
               {error}
             </div>
           )}
           {svar && (
-            <div className={'mb-2 text-xl text-kino-red'} role="alert">
+            <div className={'mb-2 text-xl text-kino-red'} role='alert'>
               {svar.message}
             </div>
           )}
           <div>
-            <label htmlFor="firstInput">Firstname:</label>
+            <label htmlFor='firstInput'>Firstname:</label>
             <br />
             <input
-              type="text"
-              id="firstInput"
+              type='text'
+              id='firstInput'
               value={firstName}
-              className="border-solid border-kino-darkred border rounded-md font-bold p-1"
-              onChange={(e) => setFirstName(e.target.value)}
+              className='border-solid border-kino-darkred border rounded-md font-bold p-1'
+              onChange={e => setFirstName(e.target.value)}
               required
             />
             <br />
-            <label htmlFor="lastInput">Lastname:</label>
+            <label htmlFor='lastInput'>Lastname:</label>
             <br />
             <input
-              type="text"
-              id="lastInput"
+              type='text'
+              id='lastInput'
               value={lastName}
-              className="border-solid border-kino-darkred border rounded-md font-bold p-1"
-              onChange={(e) => setLastName(e.target.value)}
+              className='border-solid border-kino-darkred border rounded-md font-bold p-1'
+              onChange={e => setLastName(e.target.value)}
               required
             />
             <br />
             <Button
-              type="button"
+              type='button'
               onClick={() => updateName(firstName, lastName)}
-              style={{ marginTop: '1rem', marginBottom: '1rem' }}
-            >
+              style={{ marginTop: '1rem', marginBottom: '1rem' }}>
               Update name
             </Button>
           </div>
 
           <div>
-            <label htmlFor="numberInput">Mobile:</label>
+            <label htmlFor='numberInput'>Mobile:</label>
             <br />
             <input
-              type="text"
-              id="numberInput"
+              type='text'
+              id='numberInput'
               value={newNumber?.number}
-              placeholder="070XXXXXXXX"
-              className="border-solid border-kino-darkred border rounded-md font-bold p-1"
-              onChange={(e) =>
-                setNumber({ number: e.target.value.trim().replace(/\D/g, '') })
-              }
+              placeholder='070XXXXXXXX'
+              className='border-solid border-kino-darkred border rounded-md font-bold p-1'
+              onChange={e => setNumber({ number: e.target.value.trim().replace(/\D/g, '') })}
               required
             />
             <br />
             <Button
-              type="button"
+              type='button'
               onClick={() => updateNumber(newNumber)}
-              style={{ marginTop: '1rem', marginBottom: '1rem' }}
-            >
+              style={{ marginTop: '1rem', marginBottom: '1rem' }}>
               Update number
             </Button>
           </div>

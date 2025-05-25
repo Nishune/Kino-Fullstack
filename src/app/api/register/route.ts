@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ created: true, message: 'Created!' }, { status: 201 });
   } catch (error) {
+    console.error(error as string);
     return NextResponse.json({ created: false, message: 'Invalid credentials' }, { status: 406 });
   }
 }
